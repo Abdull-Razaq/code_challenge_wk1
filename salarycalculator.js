@@ -16,37 +16,41 @@ let benefits = prompt("Input your benefits: ");
 
 // Calculation of gross salary.
 
-const grossSalary = parseInt(basicSalary) + parseInt(benefits);
+let grossSalary = parseInt(basicSalary) + parseInt(benefits);
 
-return grossSalary;
+console.log("Gross salary: " + grossSalary);
 
 
 // P.A.Y.E calculations 
 
-if (grossSalary < 24,000) {
-    paye1 = grossSalary - (grossSalary * 0.1);
-    paye = paye1;
-    return paye;
+// if gross salary is up to 24000
+if (grossSalary <= 24000){
 
-    
-} else if (24,000 > grossSalary <= 32,333) {
-    paye1 = 24,000 * 0.1;
-    paye2 = (32,333 - grossSalary)* 0.25;
-    paye = paye1 + paye2;
-    return paye;
-    
-} else{
-    paye1 = 24,000 * 0.1;
-    paye2 = (32,333 - grossSalary)* 0.25;
-    paye3 = (grossSalary-32,333) * 0.3;
-    paye = paye1 + paye2 + paye3;
-    return paye;
-    
+   paye = grossSalary * 0.1;
+
+  //if gross salary is between 24001 - 32333
+} else if (24,000 < grossSalary <= 32,333){
+ paye1 = 24000 * 0.1;
+ paye2 = (grossSalary - 24000) * 0.25;
+ paye = paye1 + paye2 ;
+
+
+ // if gross salary is more than 32333
+} else {
+ paye1 = 24000 * 0.1;
+ paye2 = (32333 - 24001) * 0.25;
+ paye3 = (grossSalary - 32333) * 0.3;
+ paye = paye1 + paye2 + paye3;
+
 }
 
-const personalRelief = 2400;
-let taxableAmount = paye - personalRelief;
-return taxableAmount;
+// deducting the personal relief which is 2400
+if (paye < 2400){
+   paye = 0
+}else {
+   paye = paye - 2400
+}
+console.log ("PAYE:" , paye);
 
 // NHIF calculations
 
@@ -86,25 +90,24 @@ if (grossSalary < 6000){
     nhif = 1700;
  }
 
- return nhif;
+//  return nhif;
+ console.log("Your nhif is: " + nhif);
 
 //NSSF calculations
-if (pensionablePay => 6,000) {
-    tier1 = pensionablePay * 0.6;
-    nssf = tier1;
-    return nssf; 
-} else if (6,000 > pensionablePay < 18,000) {
-    tier2 =pensionablePay * 0.6;
-    nssf = tier2;
-    return nssf;
 
-}else {
-    return 0;
+let nssf = grossSalary * 0.06;
+//NSSf should not be more than 1080
+if (nssf > 1080){
+   nssf = 1080;
+}else{
+    nssf = grossSalary * 0.06;
 }
+
+console.log("NSSF:", nssf);
 
 //Calculations of Net salary
 
-let deductions = taxableAmount + nhif + nssf;
+let deductions = paye + nhif + nssf;
 let netSalary = grossSalary - deductions;
 return netSalary;
 
